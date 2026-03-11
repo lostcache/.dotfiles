@@ -8,13 +8,13 @@ default_floating_border pixel 1
 hide_edge_borders smart
 
 # Gaps
-gaps inner 2
-gaps outer 2
+gaps inner 1
+gaps outer 1
 smart_gaps on
 smart_borders on
 
 # HiDPI for Retina (adjust scale as needed)
-output * scale 2
+output * scale 1.75
 
 # Input: Trackpad natural scroll, keyboard US (change xkb_layout)
 input type:keyboard {
@@ -77,7 +77,7 @@ mode "resize" {
     bindsym j resize grow height 10px
     bindsym k resize shrink height 10px
     bindsym l resize grow width 10px
-    
+
     # Return to default mode
     bindsym Return mode "default"
     bindsym Escape mode "default"
@@ -93,10 +93,18 @@ bindsym $mod+Shift+q kill
 bindsym $mod+Shift+r reload
 bindsym $mod+Shift+e exec swaymsg exit
 
-# Volume/Brightness (PipeWire)
+# Volume/Brightness (PipeWire & brightnessctl)
 bindsym XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
 bindsym XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
 bindsym XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+
+# Screen Brightness
+bindsym XF86MonBrightnessUp exec brightnessctl -d apple-panel-bl set 5%+
+bindsym XF86MonBrightnessDown exec brightnessctl -d apple-panel-bl set 5%-
+
+# Keyboard Backlight
+bindsym XF86KbdBrightnessUp exec brightnessctl -d kbd_backlight set 10%+
+bindsym XF86KbdBrightnessDown exec brightnessctl -d kbd_backlight set 10%-
 
 # Lock: Cmd+L
 # bindsym $mod+l exec swaylock
@@ -106,8 +114,13 @@ bindsym Print exec grim -g "$(slurp)" ~/Pictures/screenshot-$(date +%Y%m%d-%H%M%
 
 # Autostart
 exec nm-applet
-exec waybar
 exec mako  # Notifications
+
+bar {
+    position top
+    font "FiraCode Nerd Font:monospace 8"
+    status_command /home/lostcache/.config/sway/status.sh
+}
 
 # Client rules (e.g., float some apps)
 for_window [class="^floating$"] floating enable
