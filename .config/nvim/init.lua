@@ -23,4 +23,4 @@ require("lazy").setup("plugins", {
 	change_detection = { notify = false },
 })
 
-vim.cmd.colorscheme("solarized-osaka")
+vim.cmd.colorscheme("gruber-darker")
