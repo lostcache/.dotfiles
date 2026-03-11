@@ -1,5 +1,0 @@
-0000000000000000000000000000000000000000 e3f2c0ea6fe689282ef44aac5968c9cca6b384a7 lostcache <harshdevisha9111@gmail.com> 1773204209 -0700	commit (initial): adds vim config
-e3f2c0ea6fe689282ef44aac5968c9cca6b384a7 ed97a7599ee70561fd7270175a4320fde616ce9a lostcache <harshdevisha9111@gmail.com> 1773204264 -0700	commit: adds nvim config
-ed97a7599ee70561fd7270175a4320fde616ce9a 5405702da21e407e26805d6d740aafccc49215d0 lostcache <harshdevisha9111@gmail.com> 1773204288 -0700	commit: adds sway config
-5405702da21e407e26805d6d740aafccc49215d0 062faf0605421a02ae0edc3baf4d754c4adedd6c lostcache <harshdevisha9111@gmail.com> 1773204305 -0700	commit: adds waybar config
-062faf0605421a02ae0edc3baf4d754c4adedd6c e835624fd5aef8fbd73b3db727dc101190c38cf9 lostcache <harshdevisha9111@gmail.com> 1773204648 -0700	commit: need to add as submodule
