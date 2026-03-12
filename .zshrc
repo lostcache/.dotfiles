@@ -110,3 +110,34 @@ export NVM_DIR="$HOME/.nvm"
 
 alias dot='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 
+# fuzzy search dirs to cd into
+ROOT_DIRS=(~/code ~/.config)
+
+fzf_cd() {
+  local dir
+  # Use fd if available for better performance and easier exclusion logic
+  if command -v fd >/dev/null; then
+    dir=$(fd --type d --hidden --exclude .git --exclude node_modules . "${ROOT_DIRS[@]}" 2>/dev/null | fzf)
+  else
+    # Improved find command:
+    # 1. Skip .git and node_modules
+    # 2. Skip hidden directories (but allow the root dirs themselves even if they are hidden)
+    # 3. Only print directories
+    dir=$(find "${ROOT_DIRS[@]}" -mindepth 1 \
+      \( -name .git -o -name node_modules -o -name ".*" \) -prune \
+      -o -type d -print 2>/dev/null | fzf)
+  fi
+
+  if [[ -n "$dir" ]]; then
+    cd "$dir"
+  fi
+}
+
+fzf_cd_widget() {
+  fzf_cd
+  zle reset-prompt
+}
+
+zle -N fzf_cd_widget
+bindkey '^F' fzf_cd_widget
+
