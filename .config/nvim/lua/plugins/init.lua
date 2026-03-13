@@ -12,5 +12,5 @@ return {
 
 	-- Load LSP and completion from separate files
 	{ import = "plugins.lsp" },
-	{ import = "plugins.copilot" },
+	{ import = "plugins.supermaven" },
 }
