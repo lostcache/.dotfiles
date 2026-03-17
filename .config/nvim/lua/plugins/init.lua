@@ -10,6 +10,8 @@ return {
 	{ import = "plugins.spectre" },
 	{ import = "plugins.transparent" },
 
+	{ import = "plugins.markdown" },
+
 	-- Load LSP and completion from separate files
 	{ import = "plugins.lsp" },
 	{ import = "plugins.supermaven" },
