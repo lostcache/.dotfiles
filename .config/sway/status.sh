@@ -18,16 +18,42 @@ get_network() {
     fi
 }
 
-# CPU & RAM Usage
-get_cpu_ram() {
-    # CPU: Extract usage from 'top'
-    # Use -n1 and sum us+sy. AWK handles potential empty/null values.
+# Bluetooth
+get_bluetooth() {
+    # Check if bluetoothctl is available
+    if ! command -v bluetoothctl >/dev/null 2>&1; then
+        echo "󰂲 N/A      "
+        return
+    fi
+    
+    # Check if bluetooth is powered on
+    powered=$(bluetoothctl show | grep "Powered: yes" | wc -l)
+    if [ "$powered" -eq 1 ]; then
+        # Check for connected devices
+        devices=$(bluetoothctl devices Connected | wc -l)
+        if [ "$devices" -gt 0 ]; then
+            # Get the name of the first connected device
+            dev_name=$(bluetoothctl devices Connected | head -n 1 | cut -d ' ' -f 3-)
+            printf " %-10.10s" "$dev_name"
+        else
+            echo " On       "
+        fi
+    else
+        echo "󰂲 Off      "
+    fi
+}
+
+# CPU Usage
+get_cpu() {
     cpu_usage=$(top -bn1 | grep "Cpu(s)" | awk '{print $2 + $4}')
+    printf " %5.1f%%" "$cpu_usage"
+}
+
+# RAM Usage
+get_ram() {
     # RAM: Extract usage from 'free'
-    # %3.0f ensures 3 digits for percentage
-    ram_usage=$(free -m | awk '/Mem:/ { printf("%3.0f%", $3/$2 * 100.0) }')
-    # Fixed precision CPU: 5 characters (e.g., "  1.2") + %
-    printf " %5.1f% |  %s" "$cpu_usage" "$ram_usage"
+    ram_usage=$(free -m | awk '/Mem:/ { printf("%3.0f%%", $3/$2 * 100.0) }')
+    printf " %s" "$ram_usage"
 }
 
 # CPU Temp
@@ -52,7 +78,7 @@ get_battery() {
         status=$(cat "$bat_path/status")
         icon=""
         [ "$status" == "Charging" ] && icon="󱐋"
-        printf "%s %3d%" "$icon" "$capacity"
+        printf "%s %3d%%" "$icon" "$capacity"
     else
         echo "󱉝 N/A"
     fi
@@ -60,13 +86,17 @@ get_battery() {
 
 # Volume (PipeWire)
 get_volume() {
-    vol_info=$(wpctl get-volume @DEFAULT_AUDIO_SINK@)
+    vol_info=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ 2>/dev/null)
+    if [ -z "$vol_info" ]; then
+        echo "󰕾 ---%"
+        return
+    fi
     is_muted=$(echo "$vol_info" | grep -q "MUTED" && echo "yes" || echo "no")
     volume=$(echo "$vol_info" | awk '{print int($2 * 100)}')
     if [ "$is_muted" == "yes" ]; then
         echo "󰝟 MUTED"
     else
-        printf "󰕾 %3d%" "$volume"
+        printf "󰕾 %3d%%" "$volume"
     fi
 }
 
@@ -76,7 +106,7 @@ get_brightness() {
     if [ -n "$backlight_dir" ]; then
         max=$(cat "$backlight_dir/max_brightness")
         curr=$(cat "$backlight_dir/brightness")
-        printf "󰃠 %3d%" $((curr * 100 / max))
+        printf "󰃠 %3d%%" $((curr * 100 / max))
     else
         echo "󰃠 ---%"
     fi
@@ -90,9 +120,11 @@ get_datetime() {
 # Final loop for continuous update
 while true; do
     # Using printf for the whole line to ensure no extra whitespace/newlines creep in
-    printf "%s | %s | %s | %s | %s | %s | %s\n" \
+    printf "%s | %s | %s | %s | %s | %s | %s | %s | %s\n" \
         "$(get_network)" \
-        "$(get_cpu_ram)" \
+        "$(get_bluetooth)" \
+        "$(get_cpu)" \
+        "$(get_ram)" \
         "$(get_cpu_temp)" \
         "$(get_brightness)" \
         "$(get_volume)" \
