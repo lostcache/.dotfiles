@@ -37,6 +37,14 @@ return {
 		end,
 	},
 
+	-- Buffer removal
+	{
+		"echasnovski/mini.bufremove",
+		config = function()
+			require("mini.bufremove").setup()
+		end,
+	},
+
 	-- Highlight word under cursor
 	{
 		"echasnovski/mini.cursorword",

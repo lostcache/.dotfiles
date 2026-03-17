@@ -33,7 +33,9 @@ map({ "n", "v", "x" }, "<leader>d", '"+d<CR>')
 
 -- Custom commands
 map("n", "<leader>rr", ":!./run.sh<CR>")
-map("n", "<leader>c", ":BD<CR>")
+map("n", "<leader>q", function()
+	require("mini.bufremove").delete(0, false)
+end, { desc = "Delete buffer but keep windows" })
 
 -- Window navigation
 map("n", "<C-h>", "<C-w>h")
