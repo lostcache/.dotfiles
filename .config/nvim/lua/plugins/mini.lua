@@ -100,7 +100,84 @@ return {
 	{
 		"https://github.com/nvim-mini/mini.statusline",
 		config = function()
-			require("mini.statusline").setup()
+			local statusline = require("mini.statusline")
+			statusline.setup({
+				content = {
+					active = function()
+						local mode, mode_hl = statusline.section_mode({ truncate_width = 120 })
+						local git = statusline.section_git({ truncate_width = 40 })
+						local diff = statusline.section_diff({ truncate_width = 75 })
+						local diagnostics = statusline.section_diagnostics({ truncate_width = 75 })
+						local filename = statusline.section_filename({ truncate_width = 140 })
+						local location = statusline.section_location({ truncate_width = 75 })
+						local search = statusline.section_searchcount({ truncate_width = 75 })
+
+						-- LSP and Formatter info
+						local lsp_clients = vim.lsp.get_clients({ bufnr = 0 })
+						local lsp_names = {}
+						for _, client in ipairs(lsp_clients) do
+							table.insert(lsp_names, client.name)
+						end
+						local lsp_status = #lsp_names > 0 and table.concat(lsp_names, ", ") or "No LSP"
+
+						local formatters = {
+							python = "black",
+							cpp = "clang-format",
+							c = "clang-format",
+							rust = "rustfmt",
+							lua = "stylua",
+							zig = "zig fmt",
+							tex = "tex-fmt",
+							latex = "tex-fmt",
+							go = "gofmt",
+						}
+						local formatter = formatters[vim.bo.filetype] or "None"
+						local lsp_fmt = string.format("LSP: %s | FM: %s", lsp_status, formatter)
+
+						return statusline.combine_groups({
+							{ hl = mode_hl, strings = { mode } },
+							{ hl = "MiniStatuslineFilename", strings = { filename } },
+							{ hl = "MiniStatuslineFilename", strings = { "%=" } },
+							{ hl = "MiniStatuslineDevinfo", strings = { git } },
+							{ hl = "MiniStatuslineFilename", strings = { "%=" } },
+							{ hl = "MiniStatuslineDevinfo", strings = { diff, diagnostics } },
+							{ hl = "MiniStatuslineFileinfo", strings = { lsp_fmt } },
+							{ hl = mode_hl, strings = { location, search } },
+						})
+					end,
+				},
+			})
+
+			-- Remove backgrounds and just use font colors
+			local function patch_colors()
+				local groups = {
+					"MiniStatuslineModeNormal",
+					"MiniStatuslineModeInsert",
+					"MiniStatuslineModeVisual",
+					"MiniStatuslineModeReplace",
+					"MiniStatuslineModeCommand",
+					"MiniStatuslineModeOther",
+					"MiniStatuslineDevinfo",
+					"MiniStatuslineFileinfo",
+					"MiniStatuslineFilename",
+				}
+
+				for _, group in ipairs(groups) do
+					local hl = vim.api.nvim_get_hl(0, { name = group, link = true })
+					-- Use background as foreground for modes to keep the identifying color
+					local fg = (group:find("Mode") and hl.bg) or hl.fg
+					vim.api.nvim_set_hl(0, group, { fg = fg, bg = "NONE", reverse = false })
+				end
+				-- Ensure the main statusline bar itself is transparent
+				vim.api.nvim_set_hl(0, "StatusLine", { bg = "NONE" })
+				vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "NONE" })
+			end
+
+			patch_colors()
+			-- Re-apply on colorscheme change
+			vim.api.nvim_create_autocmd("ColorScheme", {
+				callback = patch_colors,
+			})
 		end,
 	},
 
