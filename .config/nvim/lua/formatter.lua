@@ -1,41 +1,36 @@
+local formatter_config = require("formatter_config")
+
 vim.api.nvim_create_autocmd("BufWritePre", {
 	pattern = "*",
 	callback = function()
 		local filetype = vim.bo.filetype
-
-		-- -- Try LSP formatting first
-		-- if #vim.lsp.get_clients({ bufnr = 0 }) > 0 then
-		--     vim.lsp.buf.format({ async = false })
-		--     return
-		-- end
-
-		-- Otherwise use external formatters
 		local filename = vim.api.nvim_buf_get_name(0)
-		local format_cmd
+		local formatter = formatter_config.get_formatter(filetype)
 
-		if filetype == "python" then
-			-- black needs --stdin-filename to find pyproject.toml
+		if not formatter then
+			return
+		end
+
+		local format_cmd
+		if formatter == "black" then
 			format_cmd = "black -q --stdin-filename " .. vim.fn.shellescape(filename) .. " -"
-		elseif filetype == "cpp" or filetype == "c" then
-			-- clang-format needs --assume-filename to find .clang-format
+		elseif formatter == "clang-format" then
 			format_cmd = "clang-format --assume-filename=" .. vim.fn.shellescape(filename)
-		elseif filetype == "rust" then
-			-- rustfmt automatically searches for rustfmt.toml in parent directories
+		elseif formatter == "rustfmt" then
 			format_cmd = "rustfmt"
-		elseif filetype == "lua" then
-			-- stylua needs --stdin-filepath to find stylua.toml
+		elseif formatter == "stylua" then
 			format_cmd = "stylua --stdin-filepath " .. vim.fn.shellescape(filename) .. " -"
-		elseif filetype == "zig" then
-			-- zig fmt has no configuration support (opinionated formatter)
+		elseif formatter == "zig fmt" then
 			format_cmd = "zig fmt --stdin"
-		elseif filetype == "tex" or filetype == "latex" then
-			-- tex-fmt looks for tex-fmt.toml in CWD or git root automatically
+		elseif formatter == "tex-fmt" then
 			format_cmd = "tex-fmt --stdin --tabsize 4 2>/dev/null"
-		elseif filetype == "go" then
+		elseif formatter == "gofmt" then
 			format_cmd = "gofmt"
-		elseif filetype == "markdown" or filetype == "json" or filetype == "yaml" then
+		elseif formatter == "prettier" then
 			format_cmd = "prettier --stdin-filepath " .. vim.fn.shellescape(filename)
-		else
+		end
+
+		if not format_cmd then
 			return
 		end
 
@@ -46,14 +41,13 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 		-- Run formatter
 		local output = vim.fn.system(format_cmd, input)
 		if vim.v.shell_error == 0 then
-			-- Remove trailing newline to prevent extra empty line
+			-- Remove trailing newline
 			if output:sub(-1) == "\n" then
 				output = output:sub(1, -2)
 			end
-			-- Replace buffer content with formatted output
+			-- Replace buffer content
 			local formatted_lines = vim.split(output, "\n")
 			vim.api.nvim_buf_set_lines(0, 0, -1, false, formatted_lines)
 		end
 	end,
 })
-

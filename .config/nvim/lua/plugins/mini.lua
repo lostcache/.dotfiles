@@ -135,18 +135,8 @@ return {
 						end
 						local lsp_status = #lsp_names > 0 and table.concat(lsp_names, ", ") or "No LSP"
 
-						local formatters = {
-							python = "black",
-							cpp = "clang-format",
-							c = "clang-format",
-							rust = "rustfmt",
-							lua = "stylua",
-							zig = "zig fmt",
-							tex = "tex-fmt",
-							latex = "tex-fmt",
-							go = "gofmt",
-						}
-						local formatter = formatters[vim.bo.filetype] or "None"
+						local formatter_config = require("formatter_config")
+						local formatter = formatter_config.get_formatter(vim.bo.filetype) or "None"
 						local lsp_fmt = string.format("LSP: %s | FM: %s", lsp_status, formatter)
 
 						return statusline.combine_groups({
