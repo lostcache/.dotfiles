@@ -121,7 +121,6 @@ return {
 					active = function()
 						local mode, mode_hl = statusline.section_mode({ truncate_width = 120 })
 						local git = statusline.section_git({ truncate_width = 40 })
-						local diff = statusline.section_diff({ truncate_width = 75 })
 						local diagnostics = statusline.section_diagnostics({ truncate_width = 75 })
 						local filename = statusline.section_filename({ truncate_width = 140 })
 						local location = statusline.section_location({ truncate_width = 75 })
@@ -139,13 +138,22 @@ return {
 						local formatter = formatter_config.get_formatter(vim.bo.filetype) or "None"
 						local lsp_fmt = string.format("LSP: %s | FM: %s", lsp_status, formatter)
 
+						-- Custom diff summary
+						local diff_stats = vim.b.minidiff_summary or vim.g.minidiff_summary
+						local diff_add = (diff_stats and diff_stats.add > 0) and ("+" .. diff_stats.add) or ""
+						local diff_change = (diff_stats and diff_stats.change > 0) and ("~" .. diff_stats.change) or ""
+						local diff_delete = (diff_stats and diff_stats.delete > 0) and ("-" .. diff_stats.delete) or ""
+
 						return statusline.combine_groups({
 							{ hl = mode_hl, strings = { mode } },
 							{ hl = "MiniStatuslineFilename", strings = { filename } },
 							{ hl = "MiniStatuslineFilename", strings = { "%=" } },
 							{ hl = "MiniStatuslineDevinfo", strings = { git } },
 							{ hl = "MiniStatuslineFilename", strings = { "%=" } },
-							{ hl = "MiniStatuslineDevinfo", strings = { diff, diagnostics } },
+							{ hl = "MiniStatuslineDiffAdd", strings = { diff_add } },
+							{ hl = "MiniStatuslineDiffChange", strings = { diff_change } },
+							{ hl = "MiniStatuslineDiffDelete", strings = { diff_delete } },
+							{ hl = "MiniStatuslineDevinfo", strings = { diagnostics } },
 							{ hl = "MiniStatuslineFileinfo", strings = { lsp_fmt } },
 							{ hl = mode_hl, strings = { location, search } },
 						})
@@ -173,6 +181,12 @@ return {
 					local fg = (group:find("Mode") and hl.bg) or hl.fg
 					vim.api.nvim_set_hl(0, group, { fg = fg, bg = "NONE", reverse = false })
 				end
+
+				-- Custom diff colors
+				vim.api.nvim_set_hl(0, "MiniStatuslineDiffAdd", { fg = "#10B981", bg = "NONE" })
+				vim.api.nvim_set_hl(0, "MiniStatuslineDiffChange", { fg = "#F59E0B", bg = "NONE" })
+				vim.api.nvim_set_hl(0, "MiniStatuslineDiffDelete", { fg = "#EF4444", bg = "NONE" })
+
 				-- Ensure the main statusline bar itself is transparent
 				vim.api.nvim_set_hl(0, "StatusLine", { bg = "NONE" })
 				vim.api.nvim_set_hl(0, "StatusLineNC", { bg = "NONE" })
