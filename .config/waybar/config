@@ -4,7 +4,7 @@
   "height": 22,
   "modules-left": ["sway/workspaces", "sway/mode"],
   "modules-center": ["clock"],
-  "modules-right": ["bluetooth", "cpu", "memory", "temperature", "group/brightness", "group/volume", "battery", "network", "tray"],
+  "modules-right": ["bluetooth", "cpu", "memory", "temperature", "group/brightness", "group/volume", "battery", "network", "custom/theme", "tray"],
   "sway/workspaces": {
     "disable-scroll": true,
     "all-outputs": true
@@ -87,5 +87,12 @@
     "format-disconnected": "󰖪 Disconn.",
     "tooltip-format-wifi": "{signalStrength}% signal\n{ipaddr}"
   },
-  "tray": { "spacing": 8 }
+  "tray": { "spacing": 8 },
+  "custom/theme": {
+    "exec": "basename $(readlink ~/.config/waybar/themes/current.css) .css",
+    "interval": "once",
+    "signal": 8,
+    "format": " {}",
+    "on-click": "~/.config/waybar/theme-switch.sh"
+  }
 }

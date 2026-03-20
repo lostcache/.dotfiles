@@ -1,3 +1,5 @@
+@import url("themes/current.css");
+
 * {
   font-family: "FiraCode Nerd Font", monospace;
   font-size: 12px;
@@ -7,25 +9,25 @@
 }
 
 window#waybar {
-  background: #191724;
-  color: #e0def4;
+  background: @bg;
+  color: @fg;
 }
 
 #workspaces button {
   padding: 0 8px;
-  color: #6e6a86;
+  color: @fg_dim;
   background: transparent;
 }
 
 #workspaces button.focused {
-  color: #e0def4;
-  background: #26233a;
-  border-bottom: 2px solid #ebbcba;
+  color: @fg;
+  background: @ws_focused_bg;
+  border-bottom: 2px solid @ws_focused_border;
 }
 
 #workspaces button:hover {
-  color: #e0def4;
-  background: #1f1d2e;
+  color: @fg;
+  background: @ws_hover_bg;
 }
 
 #clock,
@@ -37,24 +39,25 @@ window#waybar {
 #wireplumber,
 #battery,
 #network,
+#custom-theme,
 #tray {
   padding: 2px 10px;
-  color: #e0def4;
+  color: @fg;
 }
 
-#clock       { color: #ebbcba; }
-#bluetooth   { color: #c4a7e7; }
-#cpu         { color: #31748f; }
-#memory      { color: #9ccfd8; }
-#temperature { color: #f6c177; }
-#backlight   { color: #908caa; }
-#wireplumber { color: #c4a7e7; }
-#battery     { color: #9ccfd8; }
-#network     { color: #31748f; }
+#clock       { color: @color_clock; }
+#bluetooth   { color: @color_bluetooth; }
+#cpu         { color: @color_cpu; }
+#memory      { color: @color_memory; }
+#temperature { color: @color_temperature; }
+#backlight   { color: @color_backlight; }
+#wireplumber { color: @color_audio; }
+#battery     { color: @color_battery; }
+#network     { color: @color_network; }
 
-#temperature.critical { color: #eb6f92; }
-#battery.warning      { color: #f6c177; }
-#battery.critical     { color: #eb6f92; }
+#temperature.critical { color: @color_critical; }
+#battery.warning      { color: @color_warning; }
+#battery.critical     { color: @color_critical; }
 
 /* Drawer group containers */
 #brightness,
@@ -74,20 +77,20 @@ window#waybar {
 #pulseaudio-slider trough {
   min-width: 80px;
   min-height: 6px;
-  background: #26233a;
+  background: @slider_track_bg;
   border-radius: 3px;
 }
 
 /* Filled portion */
 #backlight-slider highlight {
   min-height: 6px;
-  background: #908caa;
+  background: @slider_backlight_fill;
   border-radius: 3px;
 }
 
 #pulseaudio-slider highlight {
   min-height: 6px;
-  background: #c4a7e7;
+  background: @slider_audio_fill;
   border-radius: 3px;
 }
 
@@ -96,7 +99,7 @@ window#waybar {
 #pulseaudio-slider slider {
   min-width: 10px;
   min-height: 10px;
-  background: #e0def4;
+  background: @slider_handle;
   border-radius: 50%;
   border: none;
   box-shadow: none;
