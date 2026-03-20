@@ -1,0 +1,104 @@
+* {
+  font-family: "FiraCode Nerd Font", monospace;
+  font-size: 12px;
+  border: none;
+  border-radius: 0;
+  min-height: 0;
+}
+
+window#waybar {
+  background: #191724;
+  color: #e0def4;
+}
+
+#workspaces button {
+  padding: 0 8px;
+  color: #6e6a86;
+  background: transparent;
+}
+
+#workspaces button.focused {
+  color: #e0def4;
+  background: #26233a;
+  border-bottom: 2px solid #ebbcba;
+}
+
+#workspaces button:hover {
+  color: #e0def4;
+  background: #1f1d2e;
+}
+
+#clock,
+#bluetooth,
+#cpu,
+#memory,
+#temperature,
+#backlight,
+#wireplumber,
+#battery,
+#network,
+#tray {
+  padding: 2px 10px;
+  color: #e0def4;
+}
+
+#clock       { color: #ebbcba; }
+#bluetooth   { color: #c4a7e7; }
+#cpu         { color: #31748f; }
+#memory      { color: #9ccfd8; }
+#temperature { color: #f6c177; }
+#backlight   { color: #908caa; }
+#wireplumber { color: #c4a7e7; }
+#battery     { color: #9ccfd8; }
+#network     { color: #31748f; }
+
+#temperature.critical { color: #eb6f92; }
+#battery.warning      { color: #f6c177; }
+#battery.critical     { color: #eb6f92; }
+
+/* Drawer group containers */
+#brightness,
+#volume {
+  padding: 0;
+}
+
+/* Slider containers — no padding, just the widget */
+#backlight-slider,
+#pulseaudio-slider {
+  padding: 0 8px 0 0;
+  min-height: 22px;
+}
+
+/* Track */
+#backlight-slider trough,
+#pulseaudio-slider trough {
+  min-width: 80px;
+  min-height: 6px;
+  background: #26233a;
+  border-radius: 3px;
+}
+
+/* Filled portion */
+#backlight-slider highlight {
+  min-height: 6px;
+  background: #908caa;
+  border-radius: 3px;
+}
+
+#pulseaudio-slider highlight {
+  min-height: 6px;
+  background: #c4a7e7;
+  border-radius: 3px;
+}
+
+/* Handle */
+#backlight-slider slider,
+#pulseaudio-slider slider {
+  min-width: 10px;
+  min-height: 10px;
+  background: #e0def4;
+  border-radius: 50%;
+  border: none;
+  box-shadow: none;
+  margin: -2px 0;
+}

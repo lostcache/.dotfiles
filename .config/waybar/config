@@ -1,0 +1,91 @@
+{
+  "layer": "top",
+  "position": "top",
+  "height": 22,
+  "modules-left": ["sway/workspaces", "sway/mode"],
+  "modules-center": ["clock"],
+  "modules-right": ["bluetooth", "cpu", "memory", "temperature", "group/brightness", "group/volume", "battery", "network", "tray"],
+  "sway/workspaces": {
+    "disable-scroll": true,
+    "all-outputs": true
+  },
+  "clock": {
+    "format": "{:%a %b %d  %H:%M}"
+  },
+  "bluetooth": {
+    "format": "󰂲 {status}",
+    "format-on": "󰂯",
+    "format-connected": "󰂱 {device_alias}",
+    "format-connected-battery": "󰂱 {device_alias} {device_battery_percentage}%",
+    "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
+    "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
+    "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+    "on-click": "blueman-manager"
+  },
+  "cpu": {
+    "format": "󰍛 {usage}%",
+    "interval": 3
+  },
+  "memory": {
+    "format": "󰑭 {percentage}%",
+    "interval": 3
+  },
+  "temperature": {
+    "thermal-zone": 0,
+    "format": "󰔏 {temperatureC}°C",
+    "critical-threshold": 80,
+    "format-critical": "󰸁 {temperatureC}°C"
+  },
+  "group/brightness": {
+    "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 300,
+      "transition-left-to-right": false
+    },
+    "modules": ["backlight", "backlight/slider"]
+  },
+  "group/volume": {
+    "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 300,
+      "transition-left-to-right": false
+    },
+    "modules": ["wireplumber", "pulseaudio/slider"]
+  },
+  "backlight": {
+    "format": "󰃠 {percent}%"
+  },
+  "backlight/slider": {
+    "min": 0,
+    "max": 100,
+    "orientation": "horizontal"
+  },
+  "wireplumber": {
+    "format": "󰕾 {volume}%",
+    "format-muted": "󰝟 muted",
+    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+  },
+  "pulseaudio/slider": {
+    "min": 0,
+    "max": 100,
+    "orientation": "horizontal"
+  },
+  "battery": {
+    "format": "{icon} {capacity}%",
+    "format-charging": "󱐋 {capacity}%",
+    "format-icons": ["󰁺", "󰁼", "󰁾", "󰂀", "󰁹"],
+    "interval": 30,
+    "bat": "macsmc-battery",
+    "states": {
+      "warning": 30,
+      "critical": 15
+    }
+  },
+  "network": {
+    "format-wifi": "󰤨 {essid:.10}",
+    "format-ethernet": "󰈀 Wired",
+    "format-disconnected": "󰖪 Disconn.",
+    "tooltip-format-wifi": "{signalStrength}% signal\n{ipaddr}"
+  },
+  "tray": { "spacing": 8 }
+}

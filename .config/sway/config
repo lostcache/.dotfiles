@@ -5,6 +5,13 @@ set $mod Mod4
 # Default to pixel borders
 default_border pixel 1
 default_floating_border pixel 1
+
+# Rose Pine window border colors
+# class                 border    bg        text      indicator child_border
+client.focused          #524f67   #26233a   #e0def4   #ebbcba   #ebbcba
+client.unfocused        #26233a   #1f1d2e   #6e6a86   #26233a   #26233a
+client.focused_inactive #26233a   #1f1d2e   #908caa   #26233a   #26233a
+client.urgent           #eb6f92   #eb6f92   #e0def4   #eb6f92   #eb6f92
 hide_edge_borders smart
 
 # Gaps
@@ -129,11 +136,14 @@ exec systemctl --user start xdg-desktop-portal-wlr
 exec nm-applet
 exec mako  # Notifications
 
-bar {
-    position top
-    font "FiraCode Nerd Font:monospace 8"
-    status_command /home/lostcache/.config/sway/status.sh
-}
+# bar {
+#     position top
+#     font "FiraCode Nerd Font:monospace 8"
+#     status_command /home/lostcache/.config/sway/status.sh
+# }
+
+# Autostart Waybar
+exec_always pkill waybar; waybar &
 
 # Client rules (e.g., float some apps)
 for_window [class="^floating$"] floating enable
