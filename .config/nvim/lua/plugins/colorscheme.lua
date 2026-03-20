@@ -16,4 +16,9 @@ return {
 		lazy = false,
 		priority = 1000,
 	},
+	{
+		"https://github.com/vague-theme/vague.nvim",
+		lazy = false,
+		priority = 1000,
+	},
 }

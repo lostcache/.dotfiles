@@ -23,4 +23,4 @@ require("lazy").setup("plugins", {
 	change_detection = { notify = false },
 })
 
-vim.cmd.colorscheme("rose-pine")
+vim.cmd.colorscheme("vague")
