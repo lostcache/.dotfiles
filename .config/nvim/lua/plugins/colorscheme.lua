@@ -11,4 +11,9 @@ return {
 		priority = 1000,
 		opts = {},
 	},
+	{
+		"https://github.com/rose-pine/neovim",
+		lazy = false,
+		priority = 1000,
+	},
 }
