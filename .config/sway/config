@@ -123,6 +123,9 @@ bindsym XF86KbdBrightnessDown exec brightnessctl -d kbd_backlight set 10%-
 bindsym Print exec grim -g "$(slurp)" ~/Pictures/screenshot-$(date +%Y%m%d-%H%M%S).png
 
 # Autostart
+exec systemctl --user set-environment XDG_CURRENT_DESKTOP=sway
+exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+exec systemctl --user start xdg-desktop-portal-wlr
 exec nm-applet
 exec mako  # Notifications
 
