@@ -130,7 +130,7 @@ bindsym XF86KbdBrightnessDown exec brightnessctl -d kbd_backlight set 10%-
 bindsym Print exec grim -g "$(slurp)" ~/Pictures/screenshot-$(date +%Y%m%d-%H%M%S).png
 
 # Autostart
-exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP; systemctl --user start sway-session.target
+exec /usr/libexec/sway-systemd/session.sh
 exec nm-applet
 exec mako  # Notifications
 
@@ -139,9 +139,6 @@ exec mako  # Notifications
 #     font "FiraCode Nerd Font:monospace 8"
 #     status_command /home/lostcache/.config/sway/status.sh
 # }
-
-# Waybar: restart on sway reload
-exec_always systemctl --user restart waybar
 
 # Client rules (e.g., float some apps)
 for_window [class="^floating$"] floating enable
