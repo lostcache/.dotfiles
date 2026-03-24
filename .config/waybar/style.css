@@ -1,4 +1,21 @@
-@import url("themes/current.css");
+/* Vague */
+@define-color bg              #141415;
+@define-color fg              #cdcdcd;
+@define-color fg_dim          #606079;
+@define-color surface         #1c1c24;
+@define-color overlay         #333738;
+
+@define-color color_clock       #c48282;
+@define-color color_bluetooth   #bb9dbd;
+@define-color color_cpu         #6e94b2;
+@define-color color_memory      #9bb4bc;
+@define-color color_temperature #f3be7c;
+@define-color color_backlight   #90a0b5;
+@define-color color_audio       #aeaed1;
+@define-color color_battery     #b4d4cf;
+@define-color color_network     #7e98e8;
+@define-color color_critical    #d8647e;
+@define-color color_warning     #f3be7c;
 
 * {
   font-family: "FiraCode Nerd Font", monospace;
@@ -9,27 +26,40 @@
 }
 
 window#waybar {
-  background: @bg;
+  background: alpha(@bg, 0.94);
   color: @fg;
+  border-radius: 10px;
+  border: 1px solid alpha(@fg_dim, 0.18);
+}
+
+/* Workspaces pill */
+#workspaces {
+  background: @surface;
+  border-radius: 8px;
+  margin: 4px 4px 4px 4px;
+  padding: 0 2px;
 }
 
 #workspaces button {
   padding: 0 8px;
   color: @fg_dim;
   background: transparent;
+  border-radius: 6px;
+  transition: all 0.15s ease;
 }
 
 #workspaces button.focused {
   color: @fg;
-  background: @ws_focused_bg;
-  border-bottom: 2px solid @ws_focused_border;
+  background: @overlay;
+  border-bottom: 2px solid @color_clock;
 }
 
 #workspaces button:hover {
   color: @fg;
-  background: @ws_hover_bg;
+  background: @overlay;
 }
 
+/* All standard modules */
 #clock,
 #bluetooth,
 #cpu,
@@ -39,12 +69,12 @@ window#waybar {
 #wireplumber,
 #battery,
 #network,
-#custom-theme,
 #tray {
   padding: 2px 10px;
   color: @fg;
 }
 
+/* Per-module accent colors */
 #clock       { color: @color_clock; }
 #bluetooth   { color: @color_bluetooth; }
 #cpu         { color: @color_cpu; }
@@ -55,53 +85,15 @@ window#waybar {
 #battery     { color: @color_battery; }
 #network     { color: @color_network; }
 
+/* State overrides */
 #temperature.critical { color: @color_critical; }
 #battery.warning      { color: @color_warning; }
 #battery.critical     { color: @color_critical; }
+#wireplumber.muted    { color: @fg_dim; }
 
-/* Drawer group containers */
-#brightness,
-#volume {
-  padding: 0;
-}
 
-/* Slider containers — no padding, just the widget */
-#backlight-slider,
-#pulseaudio-slider {
-  padding: 0 8px 0 0;
-  min-height: 22px;
-}
-
-/* Track */
-#backlight-slider trough,
-#pulseaudio-slider trough {
-  min-width: 80px;
-  min-height: 6px;
-  background: @slider_track_bg;
-  border-radius: 3px;
-}
-
-/* Filled portion */
-#backlight-slider highlight {
-  min-height: 6px;
-  background: @slider_backlight_fill;
-  border-radius: 3px;
-}
-
-#pulseaudio-slider highlight {
-  min-height: 6px;
-  background: @slider_audio_fill;
-  border-radius: 3px;
-}
-
-/* Handle */
-#backlight-slider slider,
-#pulseaudio-slider slider {
-  min-width: 10px;
-  min-height: 10px;
-  background: @slider_handle;
-  border-radius: 50%;
-  border: none;
-  box-shadow: none;
-  margin: -2px 0;
-}
+/* Visual separators between right-side module groups */
+#cpu         { border-left: 1px solid alpha(@fg_dim, 0.15); }
+#backlight   { border-left: 1px solid alpha(@fg_dim, 0.15); }
+#battery     { border-left: 1px solid alpha(@fg_dim, 0.15); }
+#tray        { border-left: 1px solid alpha(@fg_dim, 0.15); padding: 2px 8px; }

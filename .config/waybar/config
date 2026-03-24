@@ -1,10 +1,13 @@
 {
   "layer": "top",
   "position": "top",
-  "height": 22,
+  "height": 28,
+  "margin-top": 6,
+  "margin-left": 10,
+  "margin-right": 10,
   "modules-left": ["sway/workspaces", "sway/mode"],
   "modules-center": ["clock"],
-  "modules-right": ["bluetooth", "cpu", "memory", "temperature", "group/brightness", "group/volume", "battery", "network", "custom/theme", "tray"],
+  "modules-right": ["bluetooth", "cpu", "memory", "temperature", "backlight", "wireplumber", "battery", "network", "tray"],
   "sway/workspaces": {
     "disable-scroll": true,
     "all-outputs": true
@@ -36,39 +39,17 @@
     "critical-threshold": 80,
     "format-critical": "󰸁 {temperatureC}°C"
   },
-  "group/brightness": {
-    "orientation": "inherit",
-    "drawer": {
-      "transition-duration": 300,
-      "transition-left-to-right": false
-    },
-    "modules": ["backlight", "backlight/slider"]
-  },
-  "group/volume": {
-    "orientation": "inherit",
-    "drawer": {
-      "transition-duration": 300,
-      "transition-left-to-right": false
-    },
-    "modules": ["wireplumber", "pulseaudio/slider"]
-  },
   "backlight": {
-    "format": "󰃠 {percent}%"
-  },
-  "backlight/slider": {
-    "min": 0,
-    "max": 100,
-    "orientation": "horizontal"
+    "format": "󰃠 {percent}%",
+    "on-scroll-up": "brightnessctl set +5%",
+    "on-scroll-down": "brightnessctl set 5%-"
   },
   "wireplumber": {
     "format": "󰕾 {volume}%",
     "format-muted": "󰝟 muted",
-    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-  },
-  "pulseaudio/slider": {
-    "min": 0,
-    "max": 100,
-    "orientation": "horizontal"
+    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+    "on-scroll-up": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+",
+    "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
   },
   "battery": {
     "format": "{icon} {capacity}%",
@@ -87,12 +68,5 @@
     "format-disconnected": "󰖪 Disconn.",
     "tooltip-format-wifi": "{signalStrength}% signal\n{ipaddr}"
   },
-  "tray": { "spacing": 8 },
-  "custom/theme": {
-    "exec": "basename $(readlink ~/.config/waybar/themes/current.css) .css",
-    "interval": "once",
-    "signal": 8,
-    "format": " {}",
-    "on-click": "~/.config/waybar/theme-switch.sh"
-  }
+  "tray": { "spacing": 8 }
 }
