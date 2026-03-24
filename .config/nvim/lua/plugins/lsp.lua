@@ -42,7 +42,8 @@ return {
 						},
 					},
 				},
-				go = {
+				svelte = {},
+			go = {
 					cmd = { "gopls" },
 					settings = {
 						gopls = {
