@@ -21,4 +21,9 @@ return {
 		lazy = false,
 		priority = 1000,
 	},
+	{
+		"https://github.com/sainnhe/gruvbox-material",
+		lazy = false,
+		priority = 1000,
+	},
 }

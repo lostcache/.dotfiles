@@ -140,9 +140,9 @@ return {
 
 						-- Custom diff summary
 						local diff_stats = vim.b.minidiff_summary or vim.g.minidiff_summary
-						local diff_add = (diff_stats and diff_stats.add > 0) and ("+" .. diff_stats.add) or ""
-						local diff_change = (diff_stats and diff_stats.change > 0) and ("~" .. diff_stats.change) or ""
-						local diff_delete = (diff_stats and diff_stats.delete > 0) and ("-" .. diff_stats.delete) or ""
+						local diff_add = (diff_stats and (diff_stats.add or 0) > 0) and ("+" .. diff_stats.add) or ""
+						local diff_change = (diff_stats and (diff_stats.change or 0) > 0) and ("~" .. diff_stats.change) or ""
+						local diff_delete = (diff_stats and (diff_stats.delete or 0) > 0) and ("-" .. diff_stats.delete) or ""
 
 						return statusline.combine_groups({
 							{ hl = mode_hl, strings = { mode } },
