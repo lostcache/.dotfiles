@@ -17,7 +17,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 		elseif formatter == "clang-format" then
 			format_cmd = "clang-format --assume-filename=" .. vim.fn.shellescape(filename)
 		elseif formatter == "rustfmt" then
-			format_cmd = "rustfmt"
+			format_cmd = "rustfmt --edition 2024"
 		elseif formatter == "stylua" then
 			format_cmd = "stylua --stdin-filepath " .. vim.fn.shellescape(filename) .. " -"
 		elseif formatter == "zig fmt" then
