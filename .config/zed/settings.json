@@ -8,7 +8,11 @@
 // from the command palette or from `Zed` application menu.
 {
   "vim_mode": true,
-  "icon_theme": "Colored Zed Icons Theme Dark",
+  "icon_theme": {
+    "mode": "light",
+    "light": "Colored Zed Icons Theme Dark",
+    "dark": "Colored Zed Icons Theme Dark"
+  },
   "show_signature_help_after_edits": true,
   "colorize_brackets": true,
   "minimap": {
@@ -64,6 +68,7 @@
     },
   ],
   "edit_predictions": {
+    "provider": "copilot",
     "mode": "eager",
     "copilot": {
       "proxy": null,
@@ -75,25 +80,25 @@
     "metrics": true,
   },
 
-  "features": {
-    "edit_prediction_provider": "copilot",
-  },
-
   "lsp": {
     "zls": {
       "binary": {
-        "path": "~/.zvm/bin/zls",
+        "path": "/home/lostcache/.zvm/bin/zls",
       },
       "settings": {
         "zls": {
           "enable_build_on_save": true,
-          "zig_exe_path": "~/.zvm/bin/zig",
+          "zig_exe_path": "/home/lostcache/.zvm/bin/zig",
         },
       },
     },
   },
 
-  "theme": "Gruvbox Dark Hard",
+  "theme": {
+    "mode": "system",
+    "light": "One Light",
+    "dark": "Vague"
+  },
   "ui_font_size": 11.0,
   "buffer_font_size": 11.0,
   "buffer_line_height": "standard",
@@ -155,13 +160,7 @@
       "format_on_save": "on",
     },
     "Rust": {
-      "formatter": {
-        "external": {
-          "command": "rustfmt",
-          // "arguments": ["-"],
-        },
-      },
-      "inlay_hints": {},
+      "formatter": "language_server",
       "format_on_save": "on",
     },
     "C++": {
@@ -178,7 +177,7 @@
       "formatter": {
         "external": {
           "command": "clang-format",
-          "arguments": ["-"],
+          "arguments": ["--assume-filename={buffer_path}", "-"],
         },
       },
       "format_on_save": "on",
@@ -189,7 +188,7 @@
       "formatter": {
         "external": {
           "command": "black",
-          "arguments": ["-"],
+          "arguments": ["--stdin-filename", "{buffer_path}", "-"],
         },
       },
       "format_on_save": "on",
