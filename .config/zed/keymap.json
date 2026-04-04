@@ -1,0 +1,70 @@
+[
+  {
+    "context": "Workspace",
+    "bindings": {
+      "cmd-t": "workspace::ToggleBottomDock",
+      "cmd-e": "workspace::ToggleLeftDock",
+      "cmd-n": "workspace::NewFile",
+      "cmd-s": "workspace::Save",
+      "ctrl-`": "terminal_panel::ToggleFocus",
+      "cmd-r": ["task::Spawn", { "task_name": "Run run.sh" }],
+      // "cmd-p": [
+      //   "task::Spawn",
+      //   { "task_name": "Find File", "reveal_target": "center" },
+      // ],
+      // "cmd-shift-f": [
+      //   "task::Spawn",
+      //   { "task_name": "Find Text", "reveal_target": "center" },
+      // ],
+    },
+  },
+  {
+    "context": "TabSwitcher",
+    "bindings": {
+      "cmd-l": "menu::SelectNext",
+      "cmd-h": "menu::SelectPrevious",
+      "cmd-c": "tab_switcher::CloseSelectedItem",
+    },
+  },
+  {
+    "context": "Pane",
+    "bindings": {
+      "cmd-c": "pane::CloseActiveItem",
+      "cmd-w": "pane::CloseActiveItem",
+      "ctrl-shift-t": "pane::ReopenClosedItem",
+    },
+  },
+  {
+    "context": "Editor && (vim_mode == normal || vim_mode == visual) && !VimWaiting && !menu",
+    "bindings": {
+      "shift-k": "editor::Hover",
+    },
+  },
+  {
+    "context": "Editor && vim_mode == normal && !VimWaiting && !menu",
+    "bindings": {},
+  },
+  {
+    "context": "Editor && vim_mode == visual && !VimWaiting && !menu",
+    "bindings": {
+      "y": ["workspace::SendKeystrokes", "y"],
+      "d": ["workspace::SendKeystrokes", "d"],
+      "p": ["workspace::SendKeystrokes", "p"],
+      "shift-p": ["workspace::SendKeystrokes", "P"],
+    },
+  },
+  {
+    "context": "Editor && vim_mode == insert",
+    "bindings": {
+      "j k": "vim::NormalBefore",
+      "ctrl-[": "vim::NormalBefore",
+      "esc": "vim::NormalBefore",
+    },
+  },
+  {
+    "context": "terminal",
+    "bindings": {
+      "j k": "vim::NormalBefore",
+    },
+  },
+]

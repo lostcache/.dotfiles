@@ -1,0 +1,20 @@
+// Static tasks configuration.
+//
+// Example:
+[
+  {
+    "label": "Run run.sh",
+    "command": "./run.sh",
+    "use_new_terminal": true,
+  },
+  {
+    "label": "Find File",
+    "command": "zed \"$(tv files)\"",
+    "hide": "always",
+  },
+  {
+    "label": "Find Text",
+    "command": "zed \"$(tv --input '${ZED_SELECTED_TEXT:-}' text)\"",
+    "hide": "always",
+  },
+]
