@@ -1,5 +1,5 @@
-# Sway config file for Asahi Fedora (1.9+)
-# Super (Apple Cmd key) = $mod
+# Sway config for ASUS/AMD Fedora
+# Super = $mod
 set $mod Mod4
 
 # Default to pixel borders
@@ -20,8 +20,7 @@ gaps outer 1
 smart_gaps on
 smart_borders on
 
-# HiDPI for Retina (adjust scale as needed)
-output * scale 1.75
+output * scale 1
 
 # Input: Trackpad natural scroll, keyboard US (change xkb_layout)
 input type:keyboard {
@@ -116,12 +115,12 @@ bindsym XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
 bindsym XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
 
 # Screen Brightness
-bindsym XF86MonBrightnessUp exec brightnessctl -d apple-panel-bl set 5%+
-bindsym XF86MonBrightnessDown exec brightnessctl -d apple-panel-bl set 5%-
+bindsym XF86MonBrightnessUp exec brightnessctl -d amdgpu_bl1 set 5%+
+bindsym XF86MonBrightnessDown exec brightnessctl -d amdgpu_bl1 set 5%-
 
 # Keyboard Backlight
-bindsym XF86KbdBrightnessUp exec brightnessctl -d kbd_backlight set 10%+
-bindsym XF86KbdBrightnessDown exec brightnessctl -d kbd_backlight set 10%-
+bindsym XF86KbdBrightnessUp exec brightnessctl -d asus::kbd_backlight set 10%+
+bindsym XF86KbdBrightnessDown exec brightnessctl -d asus::kbd_backlight set 10%-
 
 # Lock: Cmd+L
 # bindsym $mod+l exec swaylock
@@ -131,6 +130,7 @@ bindsym Print exec grim -g "$(slurp)" ~/Pictures/screenshot-$(date +%Y%m%d-%H%M%
 
 # Autostart
 exec /usr/libexec/sway-systemd/session.sh
+exec waybar
 exec nm-applet
 exec mako  # Notifications
 

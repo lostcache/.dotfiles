@@ -56,7 +56,7 @@
     "format-charging": "󱐋 {capacity}%",
     "format-icons": ["󰁺", "󰁼", "󰁾", "󰂀", "󰁹"],
     "interval": 30,
-    "bat": "macsmc-battery",
+    "bat": "BAT0",
     "states": {
       "warning": 30,
       "critical": 15
