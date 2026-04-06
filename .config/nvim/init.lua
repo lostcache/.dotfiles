@@ -1,3 +1,9 @@
+-- Add gvm Go paths so gopls and go are findable
+local gvm_go = "/home/lostcache/.gvm/gos/go1.26.1/bin"
+local gvm_pkgs = "/home/lostcache/.gvm/pkgsets/go1.26.1/global/bin"
+vim.env.PATH = gvm_go .. ":" .. gvm_pkgs .. ":" .. vim.env.PATH
+vim.env.GOROOT = "/home/lostcache/.gvm/gos/go1.26.1"
+
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
