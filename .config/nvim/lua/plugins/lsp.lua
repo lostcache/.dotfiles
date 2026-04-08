@@ -62,6 +62,18 @@ return {
 				vim.lsp.config(server_name, config)
 				vim.lsp.enable(server_name)
 			end
+
+			vim.diagnostic.config({
+				virtual_text = {
+					spacing = 4,
+					prefix = "●",
+					severity = { min = vim.diagnostic.severity.HINT },
+				},
+				signs = true,
+				underline = true,
+				update_in_insert = false,
+				severity_sort = true,
+			})
 		end,
 	},
 }
