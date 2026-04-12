@@ -20,7 +20,23 @@ gaps outer 1
 smart_gaps on
 smart_borders on
 
-output * scale 1
+# Outputs
+# Laptop screen (left)
+output eDP-1 position 0 0 resolution 1920x1200@60Hz scale 1
+# External LG IPS FULLHD (right)
+output HDMI-A-1 position 1920 0 resolution 1920x1080@60Hz scale 1
+
+# Workspace split: 1-5 on external, 6-10 on laptop
+workspace 1 output HDMI-A-1
+workspace 2 output HDMI-A-1
+workspace 3 output HDMI-A-1
+workspace 4 output HDMI-A-1
+workspace 5 output HDMI-A-1
+workspace 6 output eDP-1
+workspace 7 output eDP-1
+workspace 8 output eDP-1
+workspace 9 output eDP-1
+workspace 10 output eDP-1
 
 # Input: Trackpad natural scroll, keyboard US (change xkb_layout)
 input type:keyboard {
@@ -81,11 +97,19 @@ bindsym $mod+Shift+0 move container to workspace number 10
 bindsym $mod+Shift+b splith
 bindsym $mod+Shift+v splitv
 
-# Focus: Arrows/Vim
+# Focus: Arrows/Vim (crosses monitor boundaries)
 bindsym $mod+h focus left
 bindsym $mod+j focus down
 bindsym $mod+k focus up
 bindsym $mod+l focus right
+
+# Move window between outputs
+bindsym $mod+Shift+period move container to output right; focus output right
+bindsym $mod+Shift+comma move container to output left; focus output left
+
+# Focus output directly
+bindsym $mod+period focus output right
+bindsym $mod+comma focus output left
 
 # Resize Mode: Cmd+R
 mode "resize" {
