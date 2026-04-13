@@ -9,8 +9,17 @@ return {
 			local ok, ts = pcall(require, "nvim-treesitter")
 			if ok and ts.install then
 				ts.install({
-					"go", "cpp", "c", "python", "rust", "zig",
-					"ocaml", "lua", "markdown", "markdown_inline", "svelte",
+					"go",
+					"cpp",
+					"c",
+					"python",
+					"rust",
+					"zig",
+					"ocaml",
+					"lua",
+					"markdown",
+					"markdown_inline",
+					"svelte",
 				})
 			end
 
@@ -19,8 +28,17 @@ return {
 			if ok2 then
 				configs.setup({
 					ensure_installed = {
-						"go", "cpp", "c", "python", "rust", "zig",
-						"ocaml", "lua", "markdown", "markdown_inline", "svelte",
+						"go",
+						"cpp",
+						"c",
+						"python",
+						"rust",
+						"zig",
+						"ocaml",
+						"lua",
+						"markdown",
+						"markdown_inline",
+						"svelte",
 					},
 					highlight = { enable = true },
 				})
