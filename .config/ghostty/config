@@ -1,6 +1,7 @@
 # theme = Gruber Darker
 # theme = Rose Pine
-theme = Vague
+# theme = Vague
+theme = Gruvbox Dark Hard
 font-size = 10
 font-family = Firacode Nerd Font Mono
 
