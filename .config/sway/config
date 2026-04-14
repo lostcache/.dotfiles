@@ -22,9 +22,9 @@ smart_borders on
 
 # Outputs
 # Laptop screen (left)
-output eDP-1 position 0 0 resolution 1920x1200@60Hz scale 1
+output eDP-1 position 0 0 resolution 1920x1200@60Hz scale 1.5
 # External LG IPS FULLHD (right)
-output HDMI-A-1 position 1920 0 resolution 1920x1080@60Hz scale 1
+output HDMI-A-1 position 1280 0 resolution 1920x1080@60Hz scale 1
 
 # Workspace split: 1-5 on external, 6-10 on laptop
 workspace 1 output HDMI-A-1
@@ -154,7 +154,6 @@ bindsym Print exec grim -g "$(slurp)" ~/Pictures/screenshot-$(date +%Y%m%d-%H%M%
 
 # Autostart
 exec /usr/libexec/sway-systemd/session.sh
-exec waybar
 exec nm-applet
 exec mako  # Notifications
 
