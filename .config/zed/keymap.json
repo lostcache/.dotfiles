@@ -2,8 +2,10 @@
   {
     "context": "Workspace",
     "bindings": {
-      "cmd-t": "workspace::ToggleBottomDock",
-      "cmd-e": "workspace::ToggleLeftDock",
+      "ctrl-b": "project_panel::Toggle",
+      "ctrl-shift-b": "outline_panel::Toggle",
+      "ctrl-j": "terminal_panel::Toggle",
+      "ctrl-shift-j": ["action::Sequence", ["terminal_panel::Toggle", "workspace::ToggleZoom"]],
       "cmd-n": "workspace::NewFile",
       "cmd-s": "workspace::Save",
       "ctrl-`": "terminal_panel::ToggleFocus",
@@ -38,6 +40,15 @@
     "context": "Editor && (vim_mode == normal || vim_mode == visual) && !VimWaiting && !menu",
     "bindings": {
       "shift-k": "editor::Hover",
+    },
+  },
+  {
+    "context": "Editor && !menu",
+    "bindings": {
+      "ctrl-b": "project_panel::Toggle",
+      "ctrl-shift-b": "outline_panel::Toggle",
+      "ctrl-j": "terminal_panel::Toggle",
+      "ctrl-shift-j": ["action::Sequence", ["terminal_panel::Toggle", "workspace::ToggleZoom"]],
     },
   },
   {

@@ -7,12 +7,15 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
-  "vim_mode": true,
   "icon_theme": {
     "mode": "light",
-    "light": "Colored Zed Icons Theme Dark",
-    "dark": "Colored Zed Icons Theme Dark"
+    "light": "Zed (Default)",
+    "dark": "Zed (Default)"
   },
+  "session": {
+    "trust_all_worktrees": true,
+  },
+  "vim_mode": true,
   "show_signature_help_after_edits": true,
   "colorize_brackets": true,
   "minimap": {
@@ -68,49 +71,29 @@
     },
   ],
   "edit_predictions": {
-    "provider": "copilot",
+    "provider": "zed",
     "mode": "eager",
-    "copilot": {
-      "proxy": null,
-      "proxy_no_verify": null,
-    },
-    "enabled_in_text_threads": false,
   },
   "telemetry": {
-    "metrics": true,
-  },
-
-  "lsp": {
-    "zls": {
-      "binary": {
-        "path": "/home/lostcache/.zvm/bin/zls",
-      },
-      "settings": {
-        "zls": {
-          "enable_build_on_save": true,
-          "zig_exe_path": "/home/lostcache/.zvm/bin/zig",
-        },
-      },
-    },
+    "metrics": false,
   },
 
   "theme": {
-    "mode": "system",
+    "mode": "dark",
     "light": "One Light",
-    "dark": "Vague"
+    "dark": "Kanagawa Dragon - No Italics",
   },
   "ui_font_size": 11.0,
-  "buffer_font_size": 11.0,
+  "buffer_font_size": 20.0,
   "buffer_line_height": "standard",
   "autosave": "off",
-  "buffer_font_family": "FiraCode Nerd Font Mono",
   "relative_line_numbers": "enabled",
   "tab_bar": {
-    "show": false,
+    "show": true,
   },
   "terminal": {
     "toolbar": {
-      "breadcrumbs": true,
+      "breadcrumbs": false,
     },
     "copy_on_select": true,
   },
